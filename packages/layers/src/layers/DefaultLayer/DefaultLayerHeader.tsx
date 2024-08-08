@@ -109,11 +109,13 @@ export const DefaultLayerHeader = () => {
     // TODO: handle multiple selected elements
     const selected = query.getEvent('selected').first() === id;
 
-    return {
-      hidden: state.nodes[id] && state.nodes[id].data.hidden,
-      selected,
-      topLevel: query.node(id).isTopLevelCanvas(),
-    };
+    return state.nodes[id]
+      ? {
+          hidden: state.nodes[id].data.hidden,
+          selected,
+          topLevel: query.node(id).isTopLevelCanvas(),
+        }
+      : {};
   });
 
   return (

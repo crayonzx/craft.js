@@ -60,7 +60,8 @@ export const DefaultLayer = ({ children }: DefaultLayerProps) => {
   }));
   const { hasChildCanvases } = useEditor((state, query) => {
     return {
-      hasChildCanvases: query.node(id).isParentOfTopLevelNodes(),
+      hasChildCanvases:
+        state.nodes[id] && query.node(id).isParentOfTopLevelNodes(),
     };
   });
 
