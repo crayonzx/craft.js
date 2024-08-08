@@ -7,13 +7,15 @@ import { useLayer } from '../useLayer';
 export const EditableLayerName = () => {
   const { id } = useLayer();
 
-  const { displayName, actions } = useEditor((state) => ({
-    displayName:
-      state.nodes[id] && state.nodes[id].data.custom.displayName
-        ? state.nodes[id].data.custom.displayName
-        : state.nodes[id].data.displayName,
-    hidden: state.nodes[id] && state.nodes[id].data.hidden,
-  }));
+  const { displayName, actions } = useEditor((state) => {
+    const node = state.nodes[id];
+    return {
+      displayName: node
+        ? node.data.custom.displayName || node.data.displayName
+        : '',
+      hidden: node && node.data.hidden,
+    };
+  });
 
   const [editingName, setEditingName] = useState(false);
   const nameDOM = useRef<HTMLElement | null>(null);
